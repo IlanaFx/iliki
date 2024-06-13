@@ -1,0 +1,1360 @@
+<html>
+<head>
+<title>Duncan's Just-In-Time Donuts</title>
+<link rel="stylesheet" type="text/css" href="index.css" />
+       <script type="text/javascript">
+        function touchRock() {
+            var userName = prompt("Добрый день!Хотите пончики?");
+            if(userName) {
+                alert('It is good to meet you,' + userName + '.');
+                document.getElementById("rockImg").src="пончики.jpg";
+            }
+        }
+function updateOrder() {
+// Using var instead of const for TAXRATE and DONUTPRICE to satisfy Internet Explorer
+var TAXRATE = 0.0925;
+var DONUTPRICE = 0.50;
+var numCakeDonuts = parseDonuts(document.getElementById("cakedonuts").value);
+var numGlazedDonuts = parseDonuts(document.getElementById("glazeddonuts").value);
+if (isNaN(numCakeDonuts))
+numCakeDonuts = 0;
+if (isNaN(numGlazedDonuts))
+numGlazedDonuts = 0;
+var subTotal = (numCakeDonuts + numGlazedDonuts) * DONUTPRICE;
+var tax = subTotal * TAXRATE;
+var total = subTotal + tax;
+document.getElementById("subtotal").value = "$" + subTotal.toFixed(2);
+ document.getElementById("tax").value = "$" + tax.toFixed(2);
+  document.getElementById("total").value = "$" + total.toFixed(2);
+}
+function parseDonuts(donutString) {
+numDonuts = parseInt(donutString);
+if (donutString.indexOf("dozen") != -1)
+numDonuts *= 12;
+return numDonuts;
+}
+function placeOrder(form) {
+if (document.getElementById("name").value == "")
+alert("I'm sorry but you must provide your name before submitting an order."); else if (document.getElementById("pickupminutes").value == "" ||
+isNaN(document.getElementById("pickupminutes").value))
+alert("I'm sorry but you must provide the number of minutes until pick-up before submitting an order.");
+else
+// Submit the order to the server
+form.submit();
+}
+</script>
+</head> 
+
+<body>
+<hr>
+<style>
+    .form-container-price {
+            display:none;
+        position: fixed;
+        z-index: 5000;
+        right: 10%;
+        top: 40%;
+        width: 300px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+     .form-block-price .active {
+          display:block;
+        }
+  
+    .form-title {
+          margin-top: 0;
+        font-size: 18px;
+        color: #333;
+    }
+  
+    .price-input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+  
+    .form-button-price {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #bf5a66;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+            font-size: 15px;
+    }
+  
+    .form-button:hover {
+        background-color: #bf5a6694;
+    }
+  
+      .close-button-price {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #888;
+    }
+  
+    .close-button-price:hover {
+        color: #000;
+    }
+  
+    .popup {
+      display: none;
+      position: fixed;
+        z-index: 5000;
+      top: 10%;
+      right: 10%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+  
+    .popup-message {
+        font-size: 18px;
+    }
+    
+    
+  </style>
+     <div class="eb">
+  <script>
+   
+  $(".form-price").on("submit", function (e) {
+      e.preventDefault();
+  
+      var name = $('#price-name').val();
+      var phone = $('#price-phone').val();
+  
+      if (name.length < 2 || phone.length < 10) {
+          alert('Заполните все необходимые поля');
+          return;
+      }
+  
+      $.ajax({
+          url: 'catalog/view/theme/sweetpremium/js/sendMail.php',
+          method: 'post',
+          data: {
+              'type': 'price_form',
+              'name': name,
+              'phone': phone,
+          },
+          success: function (data) {
+              $('#price-name').val('');
+              $('#price-phone').val('');
+              showPopup('Форма отправлена успешно!', true);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+              showPopup('Произошла ошибка при отправке формы: ' + errorThrown, false);
+          }
+      });
+  });
+    
+  function showPopup(message, success) {
+      var popup = $("#success-popup");
+      var popupMessage = popup.find(".popup-message");
+  
+      if (success) {
+          popupMessage.css("color", "green");
+      } else {
+          popupMessage.css("color", "red");
+      }
+  
+      popupMessage.text(message);
+  
+      popup.show();
+      setTimeout(function () {
+          popup.hide();
+      }, 3000); // Закрывать через 3 секунды (или другое значение)
+  }
+  
+  </script>
+  
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let priceBtn = document.querySelector('.product-card-button');
+        let priceMenu = document.querySelector('.form-container-price');
+        let closeButton = document.querySelector('.close-button-price');
+  
+        priceBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            priceMenu.classList.toggle('active');
+        });
+  
+        closeButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            priceMenu.classList.remove('active');
+        });
+    });
+  
+  </script>
+      </section>
+      <div class="vs">
+        <div class="vs2"></div>
+<div id="frame">
+    <div class="dd">
+<div class="heading"><strong>Пончики</strong></div>
+<div class="subheading"><strong>/По самым низким ценам!</strong></div></div> <div id="left">
+<form name="orderform" action="donuts.php" method="POST"> <div class="field">
+</div>
+<form name="orderform" action="donuts.php" method="POST"> 
+<div class="field">
+Название: <input type="text" id="name" name="name" value=""/>
+</div>
+<div class="field"> Сколько: <input type="text" id="cakedonuts" name="cakedonuts" value="" onchange="updateOrder();" />
+</div>
+<div class="field">
+Сколько с глазурью: <input type="text" id="glazeddonuts" name="glazeddonuts" value=""
+onchange="updateOrder();" />
+</div>
+<div class="field">
+Минуты приготовления: <input type="text" id="pickupminutes" name="pickupminutes" value="" />
+</div>
+<div class="field">
+Сумма: <input type="text" id="subtotal" name="subtotal" value="" readonly="readonly" />
+</div>
+<div class="field">
+Налог: <input type="text" id="tax" name="tax" value="" readonly="readonly" /> </div>
+<div class="field">
+Готовая сумма: <input type="text" id="total" name="total" value="" readonly="readonly" /> </div>
+<div class="field">
+<input type="button" class="ff" value="Отправить заказ" onclick="placeOrder(this.form);" /> </div>
+</form>
+</div>
+</div>
+      <main class="container-grow">
+          <div class="container-main container-default">
+              <aside id="column-left" class="">
+      <section class="categories">
+      <ul class="categories-list">
+        
+                  <li class="categories-item">
+                    
+                          <a href="i" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/67.png')">
+                  <div class="categories-name active">Донаты</div>
+                  
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/71.png')">
+                  <div class="categories-name">Изделия для выпекания</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/59.png')">
+                  <div class="categories-name">Торты</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/62.png')">
+                  <div class="categories-name">Чизкейки</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/66.png')">
+                  <div class="categories-name">Пирожные</div>
+              </a>
+              
+              <script type="text/javascript">
+                function touchRock() {
+                    var userName = prompt("что вас интересует?", "Отправить.");
+                    if(userName) {
+                        alert('...,' + userName + '.');
+                        document.getElementById("rockImg").src="пончики.jpg";
+                    }
+                }
+            </script>
+            </head>
+            <body onload="alert('Добро пожаловать!');">
+            <div style="margin-top: 30px;margin-left: 110px;">
+            <img id="rockImg" src="пончики.jpg" alt="iRock" style="cursor:pointer" onclick="touchRock();" />
+            </div>
+            
+            </body>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/69.png')">
+                  <div class="categories-name">Пироги</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/77.png')">
+                  <div class="categories-name">Гуакамоле</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/76.png')">
+                  <div class="categories-name">Мороженое</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/72.png')">
+                  <div class="categories-name">Завтраки</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/73.png')">
+                  <div class="categories-name">Маффины</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/74.png')">
+                  <div class="categories-name">Кукисы</div>
+              </a>
+                      </li>
+                  <li class="categories-item">
+                          <a href="" class="categories-link categories-link_confectionary" style="background-image: url('./image/catalog/categories/75.png')">
+                  <div class="categories-name">Хлеб</div>
+              </a>
+                      </li>
+              </ul>
+              
+  </section>
+
+      <div class="filter-list">
+       
+                      <div class="filter-item">
+                                      <input class="filter-select disabled" type="radio"/>
+                      <label class="filter-button disabled" for="filter-select3">
+                          Скидки
+                      </label>
+                              </div>
+              </div>
+
+                      <div class="catalog-body">
+                                                  <ul class="catalog-body-list">
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Донат%20с%20клубничной%20глазурью%201-457x314.png" alt="(36 шт) Донат с клубничной глазурью (пустышка)" title="(36 шт) Донат с клубничной глазурью (пустышка)" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат с клубничной глазурью (пустышка)
+                                          </h3>
+                                        <p class="card-text">Донат украшенный розовой клубничной глазурью и цветной посыпкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  350<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Classic%20Donut-457x314.png" alt="(36 шт) Классический донат (пустышка)" title="(36 шт) Классический донат (пустышка)" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Классический донат (пустышка)
+                                          </h3>
+                                        <p class="card-text">Классический донат с какао-топпингом...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Caramel%20Donut%201-457x314.png" alt="(12 шт) Донат Карамельный" title="(12 шт) Донат Карамельный" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Карамельный
+                                          </h3>
+                                        <p class="card-text">Донат с какао-топпингом и начинкой из сладкой карамели...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Strawberry%20Filling%20Donut%201-457x314.png" alt="(12 шт) Донат Клубничный" title="(12 шт) Донат Клубничный" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Клубничный
+                                          </h3>
+                                        <p class="card-text">Донат с клубничной начинкой, украшенный розовой глазурью и цветной посыпкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Wild%20Fruits%20Donut%201-457x314.png" alt="(12 шт) Донат Лесные ягоды" title="(12 шт) Донат Лесные ягоды" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Лесные ягоды
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой из лесных ягод, украшенный розовой глазурью и цветной посыпкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Marshmallow%20Donut-457x314.png" alt="(12 шт) Донат Маршмэллоу" title="(12 шт) Донат Маршмэллоу" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Маршмэллоу
+                                          </h3>
+                                        <p class="card-text">Донат с розовым топпингом украшенный кусочками нежного зефира...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Nutty%20Cream%20Donut%201-457x314.png" alt="(12 шт) Донат Ореховый" title="(12 шт) Донат Ореховый" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Ореховый
+                                          </h3>
+                                        <p class="card-text">Донат с ореховой начинкой, украшенный посыпкой из мелко дробленного ореха...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Panna%20Cotta%20Donut-457x314.png" alt="(12 шт) Донат Панна кота" title="(12 шт) Донат Панна кота" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Панна кота
+                                          </h3>
+                                        <p class="card-text">Донат а-ля "панна-котта" с двойной начинкой - малиновой и творожной, украшенный белой и розовой глаз..</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Cookies%20Donut%201-457x314.png" alt="(12 шт) Донат с печеньем Орео" title="(12 шт) Донат с печеньем Орео" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат с печеньем Орео
+                                          </h3>
+                                        <p class="card-text">Донат с кремовой ванильной начинкой, украшенный толченым печеньем...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Cinnamon%20Donut%201-457x314.png" alt="(12 шт) Донат с яблочной начинкой и корицей" title="(12 шт) Донат с яблочной начинкой и корицей" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат с яблочной начинкой и корицей
+                                          </h3>
+                                        <p class="card-text">Донат украшенный сахаром с корицей с ароматной начинкой из яблока и корицы...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Донат%20Соленая%20карамель-457x314.png" alt="(12 шт) Донат Соленая карамель" title="(12 шт) Донат Соленая карамель" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Соленая карамель
+                                          </h3>
+                                        <p class="card-text">Донат с солёной карамелью, украшенный белым топпингом и толчеными орехами...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Triple%20Choc%20Donut%201-457x314.png" alt="(12 шт) Донат Тройной шоколад" title="(12 шт) Донат Тройной шоколад" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат Тройной шоколад
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой из шоколадного крема, украшенный какао-топпингом и посыпкой из какао...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Choc%20Cream%20Donut%201-457x314.png" alt="(12 шт) Донат шоколадный с белой глазурью" title="(12 шт) Донат шоколадный с белой глазурью" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (12 шт) Донат шоколадный с белой глазурью
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой из шоколадного крема, украшенный белой глазурью и посыпкой из какао...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/Донат%20бэрри%20ягодный-457x314.png" alt="(36 шт) Донат Berry ягодный" title="(36 шт) Донат Berry ягодный" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Berry ягодный
+                                          </h3>
+                                        <p class="card-text">Донат ягодный Berry с черничной начинкой, украшенный разноцветными шариками...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Caramel%20Donut%201-457x314.png" alt="(36 шт) Донат Карамельный" title="(36 шт) Донат Карамельный" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Карамельный
+                                          </h3>
+                                        <p class="card-text">Донат с какао-топпингом и начинкой из сладкой карамели...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/Донат%20карамельной%20белый-457x314.png" alt="(36 шт) Донат карамельный белый" title="(36 шт) Донат карамельный белый" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат карамельный белый
+                                          </h3>
+                                        <p class="card-text">Донатс с карамельной начинкой, декорированный белой глазурью и полосками карамельной глазури...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Strawberry%20Filling%20Donut%201-457x314.png" alt="(36 шт) Донат Клубничный" title="(36 шт) Донат Клубничный" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Клубничный
+                                          </h3>
+                                        <p class="card-text">Донат с клубничной начинкой, украшенный розовой глазурью и цветной посыпкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Coco%20Donut%201-457x314.png" alt="(36 шт) Донат Кокосовый" title="(36 шт) Донат Кокосовый" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Кокосовый
+                                          </h3>
+                                        <p class="card-text">Донат с кокосовой начинкой, укршенный глазурью из какао и кокосовой стружкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Cola%20Donut-457x314.png" alt="(36 шт) Донат Кола" title="(36 шт) Донат Кола" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Кола
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой со вкусом колы, украшенный черным топпингом со вкусом колы и красной посыпкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Wild%20Fruits%20Donut%201-457x314.png" alt="(36 шт) Донат Лесные ягоды" title="(36 шт) Донат Лесные ягоды" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Лесные ягоды
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой из лесных ягод, украшенный розовой глазурью и цветной посыпкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Lemon%20Donut-457x314.png" alt="(36 шт) Донат лимонный" title="(36 шт) Донат лимонный" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат лимонный
+                                          </h3>
+                                        <p class="card-text">Донат с лимонной начинкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Marshmallow%20Donut-457x314.png" alt="(36 шт) Донат Маршмэллоу " title="(36 шт) Донат Маршмэллоу " class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Маршмэллоу 
+                                          </h3>
+                                        <p class="card-text">Донат с розовым топпингом украшенный кусочками нежного зефира...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Nutty%20Cream%20Donut%201-457x314.png" alt="(36 шт) Донат Ореховый" title="(36 шт) Донат Ореховый" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Ореховый
+                                          </h3>
+                                        <p class="card-text">Донат с ореховой начинкой, украшенный посыпкой из мелко дробленного ореха...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Panna%20Cotta%20Donut-457x314.png" alt="(36 шт) Донат Панна кота (с двойной начинкой из малины и сливочного сыра)" title="(36 шт) Донат Панна кота (с двойной начинкой из малины и сливочного сыра)" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Панна кота (с двойной начинкой из малины и сливочного сыра)
+                                          </h3>
+                                        <p class="card-text">Донат а-ля "панна-котта" с двойной начинкой - малиновой и творожной, украшенный белой и розовой глаз..</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="8" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/3r2-457x314.png" alt="(36 шт) Донат с печеньем Орео" title="(36 шт) Донат с печеньем Орео" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат с печеньем Орео
+                                          </h3>
+                                        <p class="card-text">Донат с кремовой ванильной начинкой, украшенный толченым печеньем...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="2" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Cinnamon%20Donut%201-457x314.png" alt="(36 шт) Донат с яблочной начинкой и корицей " title="(36 шт) Донат с яблочной начинкой и корицей " class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат с яблочной начинкой и корицей 
+                                          </h3>
+                                        <p class="card-text">Донат украшенный сахаром с корицей с ароматной начинкой из яблока и корицы...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Донат%20Соленая%20карамель-457x314.png" alt="(36 шт) Донат Соленая карамель" title="(36 шт) Донат Соленая карамель" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Соленая карамель
+                                          </h3>
+                                        <p class="card-text">Донат с солёной карамелью, украшенный белым топпингом и толчеными орехами...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Triple%20Choc%20Donut%201-457x314.png" alt="(36 шт) Донат Тройной шоколад" title="(36 шт) Донат Тройной шоколад" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Тройной шоколад
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой из шоколадного крема, украшенный какао-топпингом и посыпкой из какао...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/Донат%20фруктовый-457x314.png" alt="(36 шт) Донат Фруктовый" title="(36 шт) Донат Фруктовый" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Фруктовый
+                                          </h3>
+                                        <p class="card-text">Донат со смородиновой и малиновой начинкой, украшенный белым топпингом и разноцветной посыпкой...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Choco%20Deco%20Donut%201-457x314.png" alt="(36 шт) Донат Шоко-деко" title="(36 шт) Донат Шоко-деко" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат Шоко-деко
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой из шоколадного крема, снизу украшен глазурью из какао, и сверху - полосками какао...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/2tovary/Донаты/Choc%20Cream%20Donut%201-457x314.png" alt="(36 шт) Донат шоколадный с белой глазурью" title="(36 шт) Донат шоколадный с белой глазурью" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              (36 шт) Донат шоколадный с белой глазурью
+                                          </h3>
+                                        <p class="card-text">Донат с начинкой из шоколадного крема, украшенный белой глазурью и посыпкой из какао...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  450<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/Берлинер%20E.Wedel-457x314.png" alt="Берлинер E.Wedel" title="Берлинер E.Wedel" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              Берлинер E.Wedel
+                                          </h3>
+                                        <p class="card-text">Берлинер с начинкой и глазурью из молочного шоколада...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/Донат%20Бабл%20гам-457x314.png" alt="Донат Bubble Gum (Mantinga)" title="Донат Bubble Gum (Mantinga)" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              Донат Bubble Gum (Mantinga)
+                                          </h3>
+                                        <p class="card-text">Донат со вкусом Bubble Gum...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/Донат%20Каппучино-457x314.png" alt="Донат Cappuccino (Mantinga)" title="Донат Cappuccino (Mantinga)" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              Донат Cappuccino (Mantinga)
+                                          </h3>
+                                        <p class="card-text">Десерт, запах которого заставит вас захотеть приготовить чашечку любимого кофе!..</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                                          <li class="catalog-body-item card">
+                                  <a href="" class="card-link">
+                                      <div class="card-pic">
+                                          <img src="https://opt.sweetpremium.kz/image/cache/catalog/Донат%20Ройал%20с.%20малиновой%20начинкой-457x314.png" alt="Донат Royal с малиновой начинкой (Mantinga)" title="Донат Royal с малиновой начинкой (Mantinga)" class="card-img">
+                                      </div>
+                                      <div class="card-body">
+                                          <h3 class="card-title">
+                                              Донат Royal с малиновой начинкой (Mantinga)
+                                          </h3>
+                                        <p class="card-text">Неповторимый дизайн, роскошное сочетание вкусов, которое не оставит равнодушным даже гурмана...</p>
+  
+                                                                              
+                                                                                      <div class="card-price" style="visibility: hidden">
+                                                  0<span class="card-currency">тнг.</span>
+                                              </div>
+                                          
+                                      </div>
+                                  </a>
+                                                             </li>
+                                
+                          </ul>
+                                              </div>
+                         
+                  </section>
+  
+                  <section class="about">
+                      <div class="about-container container-default">
+                          <h2 class="about-title title-h2">Мы работаем для Вас</h2>
+                          <div class="about-wrapper">
+                              <about class="about-description">
+                                  <p class="about-desctiption-paragraph">
+                                    <h1 style="text-align:center"><span style="font-size:14.0pt;line-height:107%">Пончики </span></h1><p class="MsoNormal"><span style="font-size:14.0pt;line-height:107%">Донаты –
+  это, наверное, самый популярный десерт и перекус в зарубежных странах, в
+  особенности в США. Они весьма компактные, очень вкусные и обладают интересным
+  внешним видом. Второе название донатов «пончики», которое больше знакомо в
+  наших странах. Существует множество разновидностей начинки и глазури, с помощью
+  которых можно готовить уникальные и интересные вкусы. Каждый сможет подобрать
+  себе подходящий по вкусу пончик. <o:p></o:p></span></p><h2><span style="font-size:14.0pt;line-height:107%">Пончики на
+  заказ</span></h2><p>
+  
+  
+  
+  
+  
+  </p><p class="MsoNormal"><span style="font-size:14.0pt;line-height:107%">В нашей
+  компании вы всегда можете приобрести разнообразные виды пончиков. Все они приготовлены
+  по особой рецептуре с применением технологического оборудования. Купить пончики
+  можно на нашем сайте с доставкой по всему городу.<o:p></o:p></span></p>
+                                  </p>
+                                
+                              </about>
+                          </div>
+                      </div>
+                  </section>
+              </div>
+          </div>
+      </main>
+  </div>
+  
+  <script src="catalog/view/javascript/scrollHandler.js"></script>
+  <footer class="footer">
+   
+    <style>
+        .header-nav-list.active {
+          width: 300px !important;
+      }
+      @media (max-width: 770px){
+        .header-wrapper {
+            justify-content: center;
+        }
+      }
+      
+      .b24-widget-button-visible {
+          display:none;
+      }
+    </style>
+    
+    
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript" >
+     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+     m[i].l=1*new Date();
+     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  
+     ym(95372629, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+     });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/95372629" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+     <div class="mobile-footer">
+    
+  
+      
+      
+      <a href="https://opt.sweetpremium.kz/"><img src="https://sweetpremium.kz/image/catalog/footer/footer-icon1.png"></a>
+     <img class="cat-btn" src="https://sweetpremium.kz/image/catalog/footer/footer-icon_cat.png">
+      <ul class="header-nav-list">
+                      <li class="header-nav-list-close">
+                          <button class="header-nav-list-button"></button>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="/" class="header-nav-link">Главная</a>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="" class="header-nav-link">Каталог</a>
+                      </li>
+                                          <li class="header-nav-item">
+                          <a href="/index.php?route=information/information&information_id=9" class="header-nav-link">Доставка</a>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="https://opt.sweetpremium.kz/index.php?route=information/contact" class="header-nav-link">Контакты</a>
+                      </li>
+                      <li class="header-nav-item">
+                        <a href="/index.php?route=information/information&information_id=15" class="header-nav-link">Условия хранения, транспортировки, разморозки</a>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="/index.php?route=information/information&information_id=10" class="header-nav-link">О нас</a>
+                      </li>
+                                           <li>
+                                        
+  <a href="mailto:" class="aboxemail header-contacts-email">
+  <div class="boxemail header-contacts-email-icon"></div>
+  <div class="header-contacts-email-text">e-mail: <span class="header-contacts-email-adress"></span>                     </div>
+                      </a>
+          
+                    </li>
+                                      </ul>
+                  <div class="header-nav-divider"></div>
+      <a href="tel:+77470949307"><img src="https://sweetpremium.kz/image/catalog/footer/footer-icon2.png"></a>
+      <img class="search-btn" src="https://sweetpremium.kz/image/catalog/footer/footer-icon3.png">
+        <button class="header-hamburger">
+                        <!--<div class="header-hamburger-line"></div>
+                      <div class="header-hamburger-line"></div>
+                      <div class="header-hamburger-line"></div>-->
+        <img class="" src="https://sweetpremium.kz/image/catalog/footer/footer-icon_menu.png">
+                  </button>
+      
+      <a href="https://sweetpremium.kz/index.php?route=checkout/cart" style="display: none;"><img src="https://sweetpremium.kz/image/catalog/footer/footer-icon4.png"></a>
+      
+    </div>
+    
+  <script>
+    const hamburger = document.querySelector('.header-hamburger');
+  const nav = document.querySelector('.header-nav-list');
+  const navCloseButton = document.querySelector('.header-nav-list-button')
+  
+  
+  
+  
+  hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nav.classList.add('active')
+  })
+  nav.addEventListener('click', (e) => {
+      e.stopPropagation();
+  })
+  navCloseButton.addEventListener('click', () => {
+      nav.classList.remove('active')
+  })
+  document.body.addEventListener('click', () => {
+      nav.classList.remove('active')
+  })
+    </script>
+    
+    <script>
+  
+    let catBtn = document.querySelector('.cat-btn');
+    let footerMenu = document.querySelector('.header-catalog-list');
+    catBtn.addEventListener('click', function(){
+    footerMenu.classList.toggle('active');
+  })
+  
+  </script>
+    
+          <div class="footer-container container-default">
+              <div class="footer-main">
+                  <div class="footer-main-wrapper">
+                      <a href="/" class="footer-main-logo"></a>
+                      <div class="footer-main-copyright">
+                          © Sweet Premium/ <br>
+                          Все права защищены, <br>
+                          2023-2024
+                      </div>
+                  </div>
+                  <ul class="footer-links">
+                      <li class="footer-item">
+                          <a href="" target="_blank" class="footer-link">
+                              <span class="footer-link-text">Мы в Инстаграм</span>
+                          </a>
+                      </li>
+                    
+                    <a style="margin-top:39px;" href="" class="footer__nasa">Пользовательское соглашение</a>
+                  </ul>
+              </div>
+              <div class="footer-contacts-wrapper">
+                  <div class="footer-contacts footer-center">
+                    
+  <h3 class="footer-contacts-title">Офис г. Кокшетау:</h3>
+                      <a href="" class="footer-contacts-phone">+7 708 253 03 39</a>
+                      <a href="" class="footer-contacts-phone">info@Зponchiki.kz</a>
+                    <div style="display: flex;">
+                         <a href=""><div class="header-contacts-phone-icon"></div></a>
+                        <a href="tel:+77071895325" class="header-contacts-phone">
+                      </a>
+                    </div>
+                      <a href="7" class="footer__nasa">Политика конфиденциальности</a>
+                  </div>
+                  <!--
+                  -->
+                  <div class="footer-contacts">
+                      <h3 class="footer-contacts-title">Офис г.Кокшетау</h3>
+                      <a href="tel:+77070405474" class="footer-contacts-phone">+7 708 253 03 39</a>
+                      <a href="tel:+77070405477" class="footer-contacts-phone">+7 708 253 03 39</a>
+                      <a href="mailto:astana1@sweetpremium.kz" class="footer-contacts-email">ццц</a>
+                      <a href="mailto:astana1@sweetpremium.kz" class="footer-contacts-email">ццц</a>
+                    <div style="display:flex;">
+                         <a href=""><div class="header-contacts-phone-icon"></div></a>
+                    <a href="tel:+77470949304" class="header-contacts-phone">
+                     
+                          <div class="header-contacts-phone-number" >
+                   
+                          </div>
+                      </a>
+            </div>
+                  </div>
+                    
+                    
+                    
+              
+          </div>
+          </div>
+    
+    <!--<div class="mobile-footer">
+    
+    
+      <a href="https://opt.sweetpremium.kz/"><img src="https://sweetpremium.kz/image/catalog/footer/footer-icon1.png"></a>
+      <button class="header-hamburger">
+                      <div class="header-hamburger-line"></div>
+                      <div class="header-hamburger-line"></div>
+                      <div class="header-hamburger-line"></div>
+                  </button>
+      <ul class="header-nav-list">
+                      <li class="header-nav-list-close">
+                          <button class="header-nav-list-button"></button>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="/" class="header-nav-link">Главная</a>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="https://sweetpremium.kz/cheesecake" class="header-nav-link">Каталог</a>
+                      </li>
+                                          <li class="header-nav-item">
+                        <a href="/index.php?route=information/information&amp;information_id=9" class="header-nav-link">Доставка</a>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="https://sweetpremium.kz/index.php?route=information/contact2" class="header-nav-link">Контакты</a>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="https://sweetpremium.kz/index.php?route=information/information&amp;information_id=11" class="header-nav-link">Акции</a>
+                      </li>
+                      <li class="header-nav-item">
+                          <a href="https://sweetpremium.kz/index.php?route=information/information&amp;information_id=4" class="header-nav-link">О нас</a>
+                      </li>
+                    <li>
+                                        
+  <a href="mailto:info@sweetpremium.kz" class="aboxemail header-contacts-email">
+  <div class="boxemail header-contacts-email-icon"></div>
+  <div class="header-contacts-email-text">e-mail: <span class="header-contacts-email-adress"><a href="mailto:info@sweetpremium.kz">info@sweetpremium.kz</a></span>                     </div>
+                      </a>
+          
+                    </li>
+                                      </ul>
+      <div class="header-nav-divider"></div>
+      <a href="tel:+77470949304"><img src="https://sweetpremium.kz/image/catalog/footer/footer-icon2.png"></a>
+      <img class="search-btn" src="https://sweetpremium.kz/image/catalog/footer/footer-icon3.png">
+      <a href="https://sweetpremium.kz/index.php?route=checkout/cart"><img src="https://sweetpremium.kz/image/catalog/footer/footer-icon4.png"></a>
+      
+    </div>-->
+    
+      </footer>
+  
+  
+  
+  <script>
+  
+    let searchBtn = document.querySelector('.search-btn');
+    let footerSearch = document.querySelector('.header-search');
+    searchBtn.addEventListener('click', function(){
+    footerSearch.classList.toggle('active');
+  })
+  </script>
+  <script>
+  let catBtn = document.querySelector('.cat-btn');
+    let footerMenu = document.querySelector('.header-catalog-button');
+    catBtn.addEventListener('click', function(){
+    footerMenu.classList.toggle('active');
+  })
+  </script>
+    
+    
+      </footer>
+  
+  <script>
+  (function(w,d,u){
+  var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
+  var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+  })(window,document,'https://cdn-ru.bitrix24.ru/b12917228/crm/site_button/loader_2_rfq1l1.js');
+  </script>
+  
+  
+  <script src="catalog/view/theme/sweetpremium/js/header-hamburger.js"></script>
+  
+  <script>
+  const form12 = document.querySelector('.test');
+  
+  // Создаем элемент "крестик" и добавляем его в элемент с классом "test"
+  const closeButton = document.createElement('button');
+  closeButton.className = 'close-button';
+  closeButton.innerText = 'X';
+  form12.appendChild(closeButton);
+  
+  // Установим стиль кнопки "крестик" для того, чтобы он был виден всегда
+  closeButton.style.display = 'block';
+  form12.style.zIndex = '10';
+  
+  // Добавляем обработчик события для кнопки "крестик"
+  closeButton.addEventListener('click', () => {
+    form12.classList.remove('active');
+  });
+    
+      const input = document.querySelectorAll('input')
+  
+    input[1].placeholder = 'Имя'
+    input[2].placeholder = 'Телефон'
+    
+    const elementsToRemove = document.querySelectorAll('.b24-form-control-label');
+  
+    elementsToRemove.forEach(element => {
+      element.remove();
+    });
+  
+  </script>
+  
+  <style>
+    .b24-form-btn {
+        background:#bf5a66;
+    }
+    
+    .test.active {
+        display:none;
+    }
+  </style>
+  
+  
+      <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              var swiper = new Swiper('.swiper-container', {
+                  slidesPerView: 'auto',
+                  spaceBetween: 10,
+                  navigation: {
+                      nextEl: '.swiper-button-next',
+                      prevEl: '.swiper-button-prev',
+                  },
+              });
+          });
+       
+      </script>
+      </div>
+</body>
+</html>
