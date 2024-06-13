@@ -1,0 +1,265 @@
+html,body {
+margin: 0; 
+padding: 0; 
+width:100%;
+overflow-x: hidden;
+}
+body {
+font-family:'Montserrat', sans-serif;
+}
+#inf {
+margin: -15px 0px 30px 40px; 
+float: left; 
+position: fixed; 
+z-index: 1;
+}
+li {
+display: inline; 
+float: right ;
+padding: 15px;
+}
+ul {
+width: 95%; 
+position: fixed; 
+z-index: 1; 
+float: right;
+}
+#TEXT {
+clear: left; 
+float: left; 
+color:rgb(47,73,90);
+font-size: 50px; 
+margin: 0px 0px 0px 45px; 
+padding-top: 180px;
+padding-right: 800px;
+}
+strong {
+color: rgb(249,92,101);
+}
+.text {
+width: 100%; 
+margin: 0px 0px 0px 45px;
+padding : 450px 0px 0px 0px; 
+color: rgb(47,73,90);
+}
+.qq {
+clear: left;  
+color: white; 
+background-color: rgb(249,92,101);
+border: none; 
+margin-left: 45px;padding: 20px 40px; 
+font-size: 18px; 
+border-radius: 3px;
+}
+header { 
+background: url(r1.jpg);
+max-width: auto; 
+height: 120vh; 
+background-size: cover;
+background-repeat: no-repeat; 
+background-attachment: fixed;
+ z-index: 2;
+}
+.qq {
+margin-top: 30px; 
+cursor: pointer;
+}
+a.qq:hover {
+    background: rgb(81, 0, 4);
+}
+a.qq:active {
+    background: rgb(86, 30, 142);
+}
+.lg {
+color: rgb(47,73,90);  
+margin-top: -80px;
+max-width: 100%; 
+}
+.h1 {  
+font-size: 36px;
+}
+.long1 { 
+font-size: 18px;
+padding: 0px 0px 50px 45px
+}
+.pad1 {
+padding: 70px 90px 0px 45px ;
+}
+.p {
+float: left;
+background-color: rgb(240, 240, 240);
+position: relative;
+width: 33.3%
+}
+.p1 {
+float: left;
+background-color: rgb(240, 240, 240);
+position: relative;
+width: 33.3% 
+}
+.p3 {
+float: right;
+background-color: rgb(240, 240, 240);
+position: relative; 
+width: 33.38%;
+}
+.o {
+background: none; 
+border: 0; 
+color: rgb(249,92,101); 
+margin-top: 20px;
+font-size: 18px;
+padding-left: -10px;
+}
+.u {
+margin-top: 50px;
+}
+.kon {
+float: right; 
+margin-right: 70px; 
+transform: rotate(90deg);
+padding: 6px;
+margin-top: 100px;
+}
+.kon:hover {
+background-color: rgba(228, 228, 228, 0.70); 
+padding: 6PX;
+}
+.monik {
+ margin-left: 50px;
+ padding-top: 100px; 
+ float: left;
+}
+.o1 {
+background: none; 
+border: 0; 
+color: rgb(249,92,101); 
+float: left; 
+margin-top: 52px; 
+font-size: 18px ;
+}
+.u1 {
+margin-top: 50px
+}
+.rr {
+margin-top: 120px; 
+float: left; 
+margin-left: 120px;
+}
+.lag {
+margin-left: 30px;
+}
+.p4 {
+    float: right;
+    background-color: rgb(228, 228, 228);
+    position: relative; 
+    width: 33.3%;}
+    .pad2 {
+        padding: 70px 90px 0px 45px ;
+        }
+        .long2 { 
+            font-size: 18px;
+            padding: 0px 0px 50px 45px;
+            }
+            .p2 {
+                float: left;
+                background-color: rgb(228, 228, 228);
+                position: relative;
+                width: 33.3%;
+                border-top: 200px;
+                }
+ .p9 {
+float: left;
+ background-color: rgb(228, 228, 228);
+ position: relative;
+ width: 33.3%;
+ }
+ 
+.blsa {
+    clear: left;
+}
+.kon1 {
+    float: right; 
+    margin-bottom: 0px; 
+    margin-right: 55px; 
+    transform: rotate(90deg);
+    padding: 10PX
+}
+.blsa 
+{
+display: flex;
+}
+.d4 {float: left;
+    background-color: rgb(228, 228, 228);
+    position: relative;
+    width: 33.3%;
+    display: flex;
+}
+.d5 {float: left;
+    background-color: rgb(228, 228, 228);
+    position: relative;
+    width: 33.3%;
+    display: flex;
+}
+.d6 {float: left;
+    background-color: rgb(228, 228, 228);
+    position: relative;
+    width: 33.3% ;
+    display: flex;
+}
+.ee {clear: left;background-attachment: fixed;background-color:rgb(240, 240, 240) ;}
+.h33 {color: rgb(104, 101, 101);}
+.чел1 {margin-left: 3%; margin-top: 5%; float: left;}
+#jj {float: left;margin-left: 3%; margin-top: 3%;}
+.челы {width: 33,3%;}
+.hr {
+    clear: left;
+    padding-top: 87px;
+}
+.o2 {
+    padding-left: 160px;
+    padding-top: 50px;
+    font-family:'Montserrat', sans-serif;
+    font-size: large;
+}
+.eee {
+    background-attachment: fixed;background-color:rgb(240, 240, 240) ;
+}
+.oy {
+    clear: left;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+.hr2 {
+    padding-top: 50px;width: 95%;margin: 0 35% 0 3%;
+}
+.pod {
+    clear: left; padding-top: 30px;
+    padding-left: 30px;
+    display: flex;
+}
+.fff {
+    width: 15%;
+    height: 15%;
+}
+.чел1 {
+    border-radius: 60px;
+}
+.gag5 {
+padding-top: 20px;margin-left: 40px;margin-bottom: 30px;display: flex;margin-right: 20px;}
+#gag1 {margin-right: 10px;}
+.ter {
+    padding-left: 580px;
+}
+.pp {
+    width: 40px;height: 10px;
+}
+.pp1 {
+    width: 40px;height: 10px;
+}
+.pp2 {
+    width: 40px;height: 10px;
+}
+.pp3 {
+    width: 40px;height: 10px;
+}
