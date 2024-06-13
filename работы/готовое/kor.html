@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+    <!-- Ссылки на CSS и другие скрипты, если необходимо -->
+</head>
+<body>
+    	<!-- Mobile Specific Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Favicon-->
+		<link rel="shortcut icon" href="img/fav.png">
+		<!-- Author Meta -->
+		<meta name="author" content="codepixer">
+		<!-- Meta Description -->
+		<meta name="description" content="">
+		<!-- Meta Keyword -->
+		<meta name="keywords" content="">
+		<!-- meta character set -->
+		<meta charset="UTF-8">
+		<!-- Site Title -->
+		<title>Apple shope ASTANA</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+			<!--
+			CSS
+			============================================= -->
+			<link rel="stylesheet" href="css/linearicons.css">
+			<link rel="stylesheet" href="css/font-awesome.min.css">
+			<link rel="stylesheet" href="css/bootstrap.css">
+			<link rel="stylesheet" href="css/main.css">
+		</head>
+		<body>
+
+    <header id="header" id="home">
+      <div class="container">
+          <div class="row align-items-center justify-content-between d-flex">
+            <div id="logo">
+              <a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
+    </header><!-- #header -->
+<style>
+    /* Стили для корзины */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    #cart {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Добавим стили для заголовка */
+        margin-bottom: 20px;
+    }
+
+    #cart h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    #cart-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    #cart-list li {
+        margin-bottom: 10px;
+    }
+
+    #clear-cart {
+        background-color: #ff6347;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    #clear-cart:hover {
+        background-color: #cc4b38;
+    }
+
+    .quantity-buttons {
+        display: flex;
+        align-items: center;
+    }
+
+    .quantity-buttons button {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 3px 5px;
+        cursor: pointer;
+    }
+
+    .quantity-buttons button:hover {
+        background-color: #ddd;
+    }
+
+    /* Стили для сообщения о пустой корзине */
+    #empty-cart-message {
+        font-size: 18px;
+        color: #888;
+    }
+</style>
+</head>
+<body>
+<!-- Разметка для корзины -->
+<div id="cart">
+    <h2>Корзина</h2>
+    <ul id="cart-list"></ul>
+    <button id="clear-cart">Очистить всё</button>
+</div>
+
+<!-- Скрипт для добавления товаров в корзину и отображения их на другой странице -->
+<script>
+    // ... ваш JavaScript код ...
+</script>
+
+
+<!-- Скрипт для добавления товаров в корзину и отображения их на другой странице -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var cartList = document.getElementById('cart-list');
+        var addToCartButtons = document.querySelectorAll('.primary-btn');
+        var clearCartButton = document.getElementById('clear-cart');
+        var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+        addToCartButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                var product = this.closest('.single-unique-product');
+                var name = product.querySelector('h4').textContent;
+                var price = product.querySelector('h6').textContent;
+                var imgSrc = product.querySelector('img').getAttribute('src');
+
+                var cartItem = { name: name, price: price, imgSrc: imgSrc };
+                cartItems.push(cartItem);
+                localStorage.setItem('cart', JSON.stringify(cartItems));
+
+                displayCartItems();
+                
+            });
+        });
+
+        clearCartButton.addEventListener('click', function() {
+            localStorage.removeItem('cart');
+            cartItems = [];
+            displayCartItems();
+        });
+
+        // Функция для отображения товаров в корзине
+        function displayCartItems() {
+            cartList.innerHTML = ''; // Очистить текущий список
+            cartItems.forEach(function(item) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = '<img src="' + item.imgSrc + '" alt="' + item.name + '" style="width:50px;height:50px;"> ' + item.name + ' - ' + item.price;
+                cartList.appendChild(listItem);
+            });
+        }
+
+        displayCartItems();
+    });
+</script>
+
+</body>
+</html>
