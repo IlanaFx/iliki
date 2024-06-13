@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шахматы</title>
+    <style>
+        .square {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .white { background-color: #f0f0f0; }
+        .black { background-color: #808080; color: white; }
+    </style>
+</head>
+<body>
+    
+    <h1>Проверка ходов и угроз шахматных фигур</h1>
+    
+    <label for="whitePiece">Белая фигура:</label>
+    <select id="whitePiece" onchange="updatePiece('white')">
+        <option value="ладья">Ладья</option>
+        <option value="слон">Слон</option>
+        <option value="ферзь">Ферзь</option>
+        <option value="конь">Конь</option>
+        <option value="король">Король</option>
+    </select>
+    
+    <label for="blackPiece">Черная фигура:</label>
+    <select id="blackPiece" onchange="updatePiece('black')">
+        <option value="ладья">Ладья</option>
+        <option value="слон">Слон</option>
+        <option value="ферзь">Ферзь</option>
+        <option value="конь">Конь</option>
+        <option value="король">Король</option>
+    </select>
+    
+    <button onclick="checkMove()">Проверить угрозу</button>
+    
+    <p id="result"></p>
+    
+    <script>
+        // Функция для определения цвета клетки
+        function sport(row, col) {
+            return (row + col) % 2 === 0 ? 'white' : 'black';
+        }
+
+        // Создание доски с фигурами
+        for (let row = 1; row <= 8; row++) {
+            for (let col = 1; col <= 8; col++) {
+                const square = document.createElement('div');
+                square.className = 'square ' + sport(row, col);
+
+                // Добавляем классы для белых и черных фигур
+                if (row === 8 && col === 4) {
+                    square.className += ' white-piece';
+                }
+                if (row === 6 && col === 6) {
+                    square.className += ' black-piece';
+                }
+
+                document.body.appendChild(square);
+            }
+            document.body.appendChild(document.createElement('br'));
+        }
+
+        function updatePiece(color) {
+            const selectedPiece = color === 'white' ? document.getElementById('whitePiece').value : document.getElementById('blackPiece').value;
+            const square = color === 'white' ? document.querySelector('.white-piece') : document.querySelector('.black-piece');
+
+            // Обновляем текст в клетке
+            square.textContent = getPieceSymbol(selectedPiece);
+        }
+
+        function getPieceSymbol(piece) {
+            switch (piece) {
+                case 'ладья':
+                    return '♖';
+                case 'слон':
+                    return '♗';
+                case 'ферзь':
+                    return '♕';
+                case 'конь':
+                    return '♘';
+                case 'король':
+                    return '♔';
+                default:
+                    return '';
+            }
+        }
+
+        function checkMove() {
+            const whitePiece = document.getElementById('whitePiece').value;
+            const blackPiece = document.getElementById('blackPiece').value;
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = isUnderThreat ? 'Фигура под угрозой!' : 'Фигура не под угрозой.';
+        }
+        function isRookThreatening(a, b, c, d) {
+            return a === c || b === d;
+        }
+
+        function isBishopThreatening(a, b, c, d) {
+            return Math.abs(a - c) === Math.abs(b - d);
+        }
+
+        function isQueenThreatening(a, b, c, d) {
+            return isRookThreatening(a, b, c, d) || isBishopThreatening(a, b, c, d);
+        }
+
+        function isKnightThreatening(a, b, c, d) {
+            return (Math.abs(a - c) === 2 && Math.abs(b - d) === 1) || (Math.abs(a - c) === 1 && Math.abs(b - d) === 2);
+        }
+
+        function isKingThreatening(a, b, c, d) {
+            return Math.abs(a - c) <= 1 && Math.abs(b - d) <= 1;
+        }
+
+        function canMoveWithoutThreat(a, b, c, d, e, f, whitePiece, blackPiece) {
+    let isMoveValid = false;
+    let isUnderThreat = false;
+
+    if (whitePiece === 'ладья') {
+        isMoveValid = isRookThreatening(a, b, e, f);
+    } else if (whitePiece === 'слон') {
+        isMoveValid = isBishopThreatening(a, b, e, f);
+    } else if (whitePiece === 'ферзь') {
+        isMoveValid = isQueenThreatening(a, b, e, f);
+    } else if (whitePiece === 'конь') {
+        isMoveValid = isKnightThreatening(a, b, e, f);
+    } else if (whitePiece === 'король') {
+        isMoveValid = isKingThreatening(a, b, e, f);
+    }
+
+    if (blackPiece === 'ладья') {
+        isUnderThreat = isRookThreatening(c, d, e, f);
+    } else if (blackPiece === 'слон') {
+        isUnderThreat = isBishopThreatening(c, d, e, f);
+    } else if (blackPiece === 'ферзь') {
+        isUnderThreat = isQueenThreatening(c, d, e, f);
+    } else if (blackPiece === 'конь') {
+        isUnderThreat = isKnightThreatening(c, d, e, f);
+    } else if (blackPiece === 'король') {
+        isUnderThreat = isKingThreatening(c, d, e, f);
+    }
+
+    return isMoveValid && !isUnderThreat;
+}
+
+function checkMove() {
+    // Белый
+    let a = 8, b = 4;
+    // Чёрный
+    let c = 6, d = 6;
+    // Куда
+    let e = 7, f = 4;
+
+    let whitePiece = document.getElementById('whitePiece').value;
+    let blackPiece = document.getElementById('blackPiece').value;
+
+    let resultText = '';
+    if (canMoveWithoutThreat(a, b, c, d, e, f, whitePiece, blackPiece)) {
+        resultText = '' + whitePiece + ' может пойти без угрозы на (' + e + ', ' + f + ')';
+    } else {
+        resultText = '' + whitePiece + ' не может пойти на поле без угрозы на (' + e + ', ' + f + ')';
+    }
+
+    document.getElementById('result').textContent = resultText;
+}
+    </script>
+</body>
+</html>
