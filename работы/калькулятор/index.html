@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Расширенный Калькулятор</title>
+<link rel="stylesheet" href="index.css">
+<style>
+  body { font-family: Arial, sans-serif; background-color: #f7f7f7; text-align: center;}
+  .calculator { background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: inline-block; padding: 30px; margin-top: 50px; }
+  input, button { margin: 5px; padding: 10px; }
+  button { background-color: #008cba; border: none; border-radius: 4px; color: white; cursor: pointer; }
+  button:hover { background-color: #005f73; }
+  #result { margin-top: 20px; background-color: #e7f3fe; border-left: 5px solid #2196F3; padding: 10px; border-radius: 4px; }
+</style>
+</head>
+<body>
+       <div class="navbar">
+        <a href="#">Контакты</a>
+        <a href="#">Формулы</a>
+        <a href="#">О нас</a>
+        <a href="#">Главная</a>
+      </div>
+      <div id="hh">
+        <h1>Калькулятор помощник</h1>
+        <br>
+        <p>вычисляет такие формулы как:
+          
+        </p>
+        </div>
+        
+<div class="calculator">
+  <input type="number" id="value1" placeholder="Значение 1">
+  <input type="number" id="value2" placeholder="Значение 2">
+  <button onclick="calculateRingArea()">Площадь кольца</button>
+  <button onclick="calculateCylinder()">Цилиндр</button>
+  <button onclick="calculateRightTriangle()">Прямоугольный треугольник</button>
+  <button onclick="calculateCube()">Куб</button>
+  <div id="result"></div>
+</div>
+<script>
+function calculateRingArea() {
+  var R = parseFloat(document.getElementById('value1').value);
+  var r = parseFloat(document.getElementById('value2').value);
+  var area = Math.PI * (R*R - r*r);
+  document.getElementById('result').textContent = 'Площадь кольца: ' + area.toFixed(2);
+}
+
+function calculateCylinder() {
+  var r = parseFloat(document.getElementById('value1').value);
+  var h = parseFloat(document.getElementById('value2').value);
+  var lateralSurface = 2 * Math.PI * r * h;
+  var volume = Math.PI * r * r * h;
+  document.getElementById('result').textContent = 'Площадь боковой поверхности цилиндра: ' + lateralSurface.toFixed(2) + ', Объем цилиндра: ' + volume.toFixed(2);
+}
+
+function calculateRightTriangle() {
+  var a = parseFloat(document.getElementById('value1').value);
+  var b = parseFloat(document.getElementById('value2').value);
+  var c = Math.sqrt(a*a + b*b);
+  var area = (a * b) / 2;
+  var perimeter = a + b + c;
+  document.getElementById('result').textContent = 'Площадь прямоугольного треугольника: ' + area.toFixed(2) + ', Периметр: ' + perimeter.toFixed(2);
+}
+
+function calculateCube() {
+  var a = parseFloat(document.getElementById('value1').value);
+  var volume = Math.pow(a, 3);
+  var surfaceArea = 6 * (a * a);
+  document.getElementById('result').textContent = 'Объем куба: ' + volume.toFixed(2) + ', Площадь поверхности: ' + surfaceArea.toFixed(2);
+}
+
+</script><div class="calculator">
+  <input type="number" id="value3" placeholder="Значение 1">
+  <input type="number" id="value4" placeholder="Значение 2">
+  <button onclick="divide()">Разделить</button>
+  <button onclick="multiply()">Умножить</button>
+  <button onclick="add()">Сложить</button>
+  <button onclick="subtract()">Вычесть</button>
+  <div id="result2"></div>
+</div>
+
+<script>
+function divide() {
+  var value3 = parseFloat(document.getElementById('value3').value);
+  var value4 = parseFloat(document.getElementById('value4').value);
+  document.getElementById('result2').textContent = 'Результат деления: ' + (value3 / value4).toFixed(2);
+}
+
+function multiply() {
+  var value3 = parseFloat(document.getElementById('value3').value);
+  var value4 = parseFloat(document.getElementById('value4').value);
+  document.getElementById('result2').textContent = 'Результат умножения: ' + (value3 * value4).toFixed(2);
+}
+
+function add() {
+  var value3 = parseFloat(document.getElementById('value3').value);
+  var value4 = parseFloat(document.getElementById('value4').value);
+  document.getElementById('result2').textContent = 'Результат сложения: ' + (value3 + value4).toFixed(2);
+}
+
+function subtract() {
+  var value3 = parseFloat(document.getElementById('value3').value);
+  var value4 = parseFloat(document.getElementById('value4').value);
+  document.getElementById('result2').textContent = 'Результат вычитания: ' + (value3 - value4).toFixed(2);
+}
+
+</script>
+<div class="calculator">
+  <input type="number" id="value5" placeholder="Основание a или сторона a/b">
+  <input type="number" id="value6" placeholder="Высота h или сторона b">
+  <button onclick="calculateIsoscelesTriangle()">Равнобедренный треугольник</button>
+  <button onclick="calculateRectangle()">Прямоугольник</button>
+  <button onclick="calculateSquare()">Квадрат</button>
+  <div id="result3"></div>
+</div>
+
+<script>
+function calculateIsoscelesTriangle() {
+  var a = parseFloat(document.getElementById('value5').value);
+  var h = parseFloat(document.getElementById('value6').value );
+  var area = (a * h) / 2;
+  var angle = Math.asin(2 * h / a) * (180 / Math.PI); // Угол в градусах
+  document.getElementById('result3').textContent = 'Площадь равнобедренного треугольника: ' + area.toFixed(2) ;
+}
+
+function calculateRectangle() {
+  var a = parseFloat(document.getElementById('value5').value);
+  var b = parseFloat(document.getElementById('value6').value);
+  var area = a * b;
+  var perimeter = 2 * (a + b);
+  document.getElementById('result3').textContent = 'Площадь прямоугольника: ' + area.toFixed(2) + ', Периметр: ' + perimeter.toFixed(2);
+}
+
+function calculateSquare() {
+  var a = parseFloat(document.getElementById('value5').value);
+  var area = a * a;
+  var perimeter = 4 * a;
+  document.getElementById('result3').textContent = 'Площадь квадрата: ' + area.toFixed(2) + ', Периметр: ' + perimeter.toFixed(2);
+}
+</script>
+<h1>Периметр и площадь треугольника</h1>
+<div class="calculator">
+  <input type="number" id="value7" placeholder="Сторона a или основание">
+  <input type="number" id="value8" placeholder="Сторона b или высота h">
+  <input type="number" id="value9" placeholder="Сторона с">
+  <button onclick="calculateTriangle2()">Треугольник</button>
+  <button onclick="calculateRectangle2()">Прямоугольник</button>
+  <div id="result4"></div>
+</div>
+
+<script>
+function calculateTriangle2() {
+  var a = parseFloat(document.getElementById('value7').value);
+  var b = parseFloat(document.getElementById('value8').value);
+  var c = parseFloat(document.getElementById('value9').value); // предполагаем, что b равно c для равнобедренного треугольника
+  var p = (a + b + c) / 2; // полупериметр
+  var area2 = Math.sqrt(p * (p - a) * (p - b) * (p - c)); // площадь по формуле Герона
+  document.getElementById('result4').textContent = 'Площадь треугольника: ' + area2.toFixed(2);
+}
+
+function calculateRectangle2() {
+  var a = parseFloat(document.getElementById('value7').value);
+  var b = parseFloat(document.getElementById('value8').value);
+  var area2 = a * b;
+  var perimeter = 2 * (a + b);
+  document.getElementById('result4').textContent = 'Площадь прямоугольника: ' + area2.toFixed(2) + ', Периметр: ' + perimeter.toFixed(2);
+}
+</script>
+
+
+<h1>Площадь основания и обьём цилиндра <br>с радиусом основания r и высотой h</h1>
+<div class="calculator">
+  <input type="number" id="value10" placeholder="радиус (r)">
+  <input type="number" id="value11" placeholder="высота h">
+  <button onclick="calculateTriangle3()">Площадь основания</button>
+  <button onclick="calculateRectangle3()">Обьём цилиндра</button>
+  <div id="result5"></div>
+</div>
+
+<script>
+function calculateTriangle3() {
+  var a = parseFloat(document.getElementById('value10').value);
+  var h = parseFloat(document.getElementById('value11').value);
+  var S = Math.PI * (a*a);
+  var V = S * h;
+  document.getElementById('result5').textContent = 'Площадь основания цилиндра: ' + S.toFixed(2);
+}
+function calculateRectangle3() {
+  var a = parseFloat(document.getElementById('value10').value);
+  var h = parseFloat(document.getElementById('value11').value);
+  var S = Math.PI * (a*a);
+  var Vi = S * h;
+  document.getElementById('result5').textContent = 'Объем цилиндра: ' + Vi.toFixed(2);
+}
+</script>
+
+
+<h1>Обьем и площадь с основания <br> паралельного паралелепипида со сторонами а,б,с</h1>
+<div class="calculator">
+  <input type="number" id="value12" placeholder="a">
+  <input type="number" id="value13" placeholder="b">
+  <input type="number" id="value14" placeholder="c">
+  <button onclick="calculateTriangle4()">Обьем основание</button>
+  <button onclick="calculateRectangle4()">Площадь основания</button>
+  <div id="result7"></div>
+</div>
+
+<script>
+function calculateTriangle4() {
+  var a = parseFloat(document.getElementById('value12').value);
+  var b = parseFloat(document.getElementById('value13').value);
+  var c = parseFloat(document.getElementById('value14').value);
+  var V = a * b * c;
+  document.getElementById('result7').textContent = 'Обьем: ' + V.toFixed(2);
+}
+function calculateRectangle4() {
+  var a = parseFloat(document.getElementById('value12').value);
+  var b = parseFloat(document.getElementById('value13').value);
+  var c = parseFloat(document.getElementById('value14').value);
+  var S = a * b;
+  document.getElementById('result7').textContent = 'Объем цилиндра: ' + S.toFixed(2);
+}
+</script>
+
+<h1>Площадь основания и обьём конуса <br> с радиусом основания r и высотой h</h1>
+<div class="calculator">
+  <input type="number" id="value15" placeholder="радиус (r)">
+  <input type="number" id="value16" placeholder="высота h">
+  <button onclick="calculateTriangle5()">Площадь основания</button>
+  <button onclick="calculateRectangle5()">Обьём цилиндра</button>
+  <div id="result8"></div>
+</div>
+
+<script>
+function calculateTriangle5() {
+  var a = parseFloat(document.getElementById('value15').value);
+  var h = parseFloat(document.getElementById('value16').value);
+  var Si = Math.PI * Math.pow(a, 2);
+  document.getElementById('result8').textContent = 'Площадь основания конуса: ' + Si.toFixed(2);
+}
+function calculateRectangle5() {
+  var a = parseFloat(document.getElementById('value15').value);
+  var h = parseFloat(document.getElementById('value16').value);
+  var Si = Math.PI * Math.pow(a, 2);
+var Vi = Si * h/3;
+  document.getElementById('result8').textContent = 'Объем цилиндра: ' + Vi.toFixed(2);
+}
+</script>
+<h1>Гипотенуза и площадь</h1>
+<div class="calculator">
+  <input type="number" id="value17" placeholder="a">
+  <input type="number" id="value18" placeholder="b">
+  <button onclick="calculateTriangle7()">Гипотенуза</button>
+  <button onclick="calculateRectangle7()">Площадь</button>
+  <div id="result10"></div>
+</div>
+
+<script>
+function calculateTriangle7() {
+  var a = parseFloat(document.getElementById('value17').value);
+  var b = parseFloat(document.getElementById('value18').value);
+  var c = Math.sqrt(Math.pow(a,2)*Math.pow(a,2));
+                    var sideArea = a*b/2;
+  document.getElementById('result10').textContent = 'Гипотенуза: ' + c.toFixed(2);
+}
+function calculateRectangle7() {
+  var a = parseFloat(document.getElementById('value17').value);
+  var b = parseFloat(document.getElementById('value18').value);
+  var c = Math.sqrt(Math.pow(a,2)*Math.pow(a,2));
+                    var sideArea = a*b/2;
+  document.getElementById('result10').textContent = 'Площадь: ' + sideArea.toFixed(2);
+}
+</script>
+<h1>Высота и площадь равнобедренной трапеции</h1>
+<div class="calculator">
+  <input type="number" id="value19" placeholder="a">
+  <input type="number" id="value20" placeholder="b">
+  <button onclick="calculateTriangle8()">Высота</button>
+  <button onclick="calculateRectangle8()">Площадь</button>
+  <div id="result11"></div>
+</div>
+
+<script>
+function calculateTriangle8() {
+  var a = parseFloat(document.getElementById('value19').value);
+  var b = parseFloat(document.getElementById('value20').value);
+  var h = b-a/2*Math.tan(a);
+                    var S = b+a/2*h;
+  document.getElementById('result11').textContent = 'Высота: ' + h.toFixed(2);
+}
+function calculateRectangle8() {
+  var a = parseFloat(document.getElementById('value19').value);
+  var b = parseFloat(document.getElementById('value20').value);
+  var h = b-a/2*Math.tan(a);
+                    var S = b+a/2*h;
+  document.getElementById('result11').textContent = 'Площадь: ' + S.toFixed(2);
+}
+</script>
+
+<h1>Скорость в конце пути и путь</h1>
+<div class="calculator">
+  <input type="number" id="value21" placeholder="a">
+  <input type="number" id="value22" placeholder="v0">
+  <input type="number" id="value23" placeholder="t">
+  <button onclick="calculateTriangle9()">Скорость в конце пути</button>
+  <button onclick="calculateRectangle9()">путь</button>
+  <div id="result12"></div>
+</div>
+
+<script>
+function calculateTriangle9() {
+  var a = parseFloat(document.getElementById('value21').value);
+  var v0 = parseFloat(document.getElementById('value22').value);
+  var t = parseFloat(document.getElementById('value23').value);
+  var v = v0 +a*t;
+                    var S = v0*t+4*Math.pow(t,2)/2;
+  document.getElementById('result12').textContent = 'Скорость в конце пути: ' + v.toFixed(2);
+}
+function calculateRectangle9() {
+  var a = parseFloat(document.getElementById('value21').value);
+  var v0 = parseFloat(document.getElementById('value22').value);
+  var t = parseFloat(document.getElementById('value23').value);
+  var v = v0 +a*t;
+                    var S = v0*t+4*Math.pow(t,2)/2;
+  document.getElementById('result12').textContent = 'Путь: ' + S.toFixed(2);
+}
+</script>
+<h1>Радиус круга</h1>
+<div class="calculator">
+  <input type="number" id="value24" placeholder="a">
+  <input type="number" id="value25" placeholder="b">
+  <input type="number" id="value26" placeholder="c">
+  <button onclick="calculateTriangle20()">p</button>
+  <button onclick="calculateCircleRadius()">Радиус круга</button>
+  <div id="result13"></div>
+</div>
+
+<script>
+function calculateTriangle20() {
+  var a = parseFloat(document.getElementById('value24').value);
+  var b = parseFloat(document.getElementById('value25').value);
+  var c = parseFloat(document.getElementById('value26').value);
+  var p = (a + b + c) / 2;
+  document.getElementById('result13').textContent = 'p: ' + p.toFixed(2);
+}
+
+function calculateCircleRadius() {
+  var a = parseFloat(document.getElementById('value24').value);
+  var b = parseFloat(document.getElementById('value25').value);
+  var c = parseFloat(document.getElementById('value26').value);
+  var p = (a + b + c) / 2;
+  var r = Math.sqrt((p - a) * (p - b) * (p - c) / p);
+  document.getElementById('result13').textContent = 'Радиус круга: ' + r.toFixed(2);
+}
+</script>
+<h1>Кинетическая энергия тела</h1>
+<div class="calculator">
+  <input type="number" id="value27" placeholder="m">
+  <input type="number" id="value28" placeholder="v">
+  <button onclick="calculateTriangle10()">кинетическая энергия тела</button>
+  <div id="result14"></div>
+</div>
+
+<script>
+function calculateTriangle10() {
+  var m = parseFloat(document.getElementById('value27').value);
+  var v = parseFloat(document.getElementById('value28').value);
+  var E = (m*Math.pow(v, 2))/2;
+  document.getElementById('result14').textContent = 'кинетическая энергия: ' + E.toFixed(2);
+}
+</script>
+
+<h1>Площадь прямоугольного прямоугольника</h1>
+<div class="calculator">
+  <input type="number" id="value29" placeholder="гипотенуза с">
+  <input type="number" id="value30" placeholder="катет а">
+  <button onclick="calculateTriangle11()">Площадь прямоугольного треугольникa</button>
+  <button onclick="calculateRectangle11()">b</button>
+  <div id="result15"></div>
+</div>
+
+<script>
+function calculateTriangle11() {
+  var c = parseFloat(document.getElementById('value29').value);
+  var a = parseFloat(document.getElementById('value30').value);
+  var b = Math.sqrt(Math.pow(c,2)-Math.pow(a,2)) ;
+                    var S = (a*b)/2;
+  document.getElementById('result15').textContent = 'Площадь прямоугольного треугольника:  ' + S.toFixed(2);
+}
+function calculateRectangle11() {
+  var c = parseFloat(document.getElementById('value29').value);
+  var a = parseFloat(document.getElementById('value30').value);
+  var b = Math.sqrt(Math.pow(c,2)-Math.pow(a,2)) ;
+                    var S = (a*b)/2;
+  document.getElementById('result15').textContent = 'b:  ' + b.toFixed(2);
+}
+</script>
+<h1>Периметр и площадь прямоугольного треугольник</h1>
+<div class="calculator">
+  <input type="number" id="value31" placeholder="a">
+  <input type="number" id="value32" placeholder="b">
+  <button onclick="calculateTriangle12()">периметр</button>
+  <button onclick="calculateRectangle12()">площадь</button>
+  <div id="result16"></div>
+</div>
+
+<script>
+function calculateTriangle12() {
+  var b = parseFloat(document.getElementById('value31').value);
+  var a = parseFloat(document.getElementById('value32').value);
+  var S = (a*b)/2;
+                    var P = a+b+Math.sqrt(Math.pow(a,2)+Math.pow(b,2))
+  document.getElementById('result16').textContent = 'Площадь:  ' + S.toFixed(2);
+}
+function calculateRectangle12() {
+  var b = parseFloat(document.getElementById('value31').value);
+  var a = parseFloat(document.getElementById('value32').value);
+  var S = (a*b)/2;
+                    var P = a+b+Math.sqrt(Math.pow(a,2)+Math.pow(b,2))
+  document.getElementById('result16').textContent = 'Периметр:  ' + P.toFixed(2);
+}
+</script>
+
+<h1>Высота и площадь равнобедренного треугольника</h1>
+<div class="calculator">
+  <input type="number" id="value33" placeholder="a">
+  <input type="number" id="value34" placeholder="b">
+  <button onclick="calculateTriangle13()">высота</button>
+  <button onclick="calculateRectangle13()">площадь</button>
+  <div id="result17"></div>
+</div>
+
+<script>
+function calculateTriangle13() {
+  var b = parseFloat(document.getElementById('value33').value);
+  var a = parseFloat(document.getElementById('value34').value);
+  var h = a/2*Math.tan(a);
+
+var s = (a*h)/2;
+  document.getElementById('result17').textContent = 'высота:  ' + h.toFixed(2);
+}
+function calculateRectangle13() {
+  var b = parseFloat(document.getElementById('value33').value);
+  var a = parseFloat(document.getElementById('value34').value);
+  var h = a/2*Math.tan(a);
+
+                    var s = (a*h)/2;
+  document.getElementById('result17').textContent = 'площадь:  ' + s.toFixed(2);
+}
+</script> 
+<h1>Радиус круга, описанного вокруг треугольника</h1>
+<div class="calculator">
+  <input type="number" id="value35" placeholder="a">
+  <input type="number" id="value36" placeholder="b">
+  <input type="number" id="value37" placeholder="с">
+  <button onclick="calculateTriangle14()">p</button>
+  <button onclick="calculateRectangle14()">Радиус</button>
+  <div id="result18"></div>
+</div>
+
+<script>
+function calculateTriangle14() {
+  var a = parseFloat(document.getElementById('value35').value);
+  var b = parseFloat(document.getElementById('value36').value);
+  var c = parseFloat(document.getElementById('value37').value);
+  var p = (a + b + c) / 2; // полупериметр
+  var R = (a * b * c) / (4 * Math.sqrt(p * (p - a) * (p - b) * (p - c))); // радиус
+  document.getElementById('result18').textContent = 'p:  ' + p.toFixed(2);
+}
+function calculateRectangle14() {
+  var a = parseFloat(document.getElementById('value35').value);
+  var b = parseFloat(document.getElementById('value36').value);
+  var c = parseFloat(document.getElementById('value37').value);
+  var p = (a + b + c) / 2; // полупериметр
+  var R = (a * b * c) / (4 * Math.sqrt(p * (p - a) * (p - b) * (p - c))); // радиус
+  document.getElementById('result18').textContent = 'Радиус:  ' + R.toFixed(2);
+}
+</script> 
+<h1>Периметр и площадь параллеограмма</h1>
+<div class="calculator">
+  <input type="number" id="value38" placeholder="a">
+  <input type="number" id="value39" placeholder="b">
+  <input type="number" id="value40" placeholder="с">
+  <button onclick="calculateTriangle15()">Периметр</button>
+  <button onclick="calculateRectangle15()">Площадь</button>
+  <div id="result19"></div>
+</div>
+
+<script>
+function calculateTriangle15() {
+  var a = parseFloat(document.getElementById('value38').value);
+  var b = parseFloat(document.getElementById('value39').value);
+  var c = parseFloat(document.getElementById('value40').value);
+  var P = 2 * (a + b);
+  document.getElementById('result19').textContent = 'p:  ' + P.toFixed(2);
+}
+function calculateRectangle15() {
+  var a = parseFloat(document.getElementById('value38').value);
+  var b = parseFloat(document.getElementById('value39').value);
+  var c = parseFloat(document.getElementById('value40').value);
+  var S = a * b * Math.sin(a);
+  document.getElementById('result19').textContent = 'Радиус:  ' + S.toFixed(2);
+}
+</script> 
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-section">
+      <h3>О компании</h3>
+      <p>Ваш надежный партнер.</p>
+    </div>
+    <div class="footer-section">
+      <h3>Контакты</h3>
+      <p>Телефон: +7 (708) 253-03-39</p>
+    </div>
+    <div class="footer-section">
+      <h3>Следите за нами</h3>
+      <p>Мы в социальных сетях:</p>
+      <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Калькулятор. Все права защищены.</p>
+  </div>
+</footer>
+</body>
+</html>

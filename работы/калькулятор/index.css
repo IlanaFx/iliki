@@ -1,0 +1,9 @@
+p.one {
+    border-style: dashed;
+    border-top-color:darkblue;
+    border-right-color: #0088dd;
+}
+p.two {
+    border-style: dashed;
+ border-color: #bbbbaa #11111111 #ee3e80 #0088dd;
+}

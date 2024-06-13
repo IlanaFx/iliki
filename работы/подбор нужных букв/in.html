@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>аа</title>
+</head>
+<body>
+    <input type="text" id="ii" placeholder="Введите">
+    <button onclick="prover()">Проверить</button>
+    <p id="result"></p>
+
+    <script>
+       function prover() {
+    var input = document.getElementById('ii').value;
+    var result = '';
+    // Проверяем наличие буквы 'a'
+    if (input.includes('а')) {
+        result += 'А ';
+    } else {
+        result += 'нет такой буквы ';
+    }
+
+    // Проверяем наличие букв 'М' и 'Ы'
+    if (input.includes('м') && input.includes('ы')) {
+        result += 'мы';
+    }
+
+    document.getElementById('result').textContent = result;
+}
+    </script>
+</body>
+</html>
