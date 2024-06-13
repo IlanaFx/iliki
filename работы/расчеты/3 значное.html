@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Сумма наибольших цифр</title>
+    <script>
+  function l() {
+     
+    let nik = document.getElementById('gg').value;
+    if (nik.length !== 3 || isNaN(nik)) { document.getElementById('mig').innerText = "Введите трёхзначное число";
+      return;
+     }
+     //isNaN определяет является ли литерал или переменная нечисловым значением (NaN) или нет
+     //преобразует первый переданный ей аргумент в строковый тип
+     let a = parseInt(nik[0]);
+     let b = parseInt(nik[1]);
+     let c = parseInt(nik[2]);
+
+     let min = Math.min(a, b, c);
+     let sum = a + b + c - min;
+
+
+     document.getElementById('mig').innerText = `Ответ ${sum}`;
+
+  }
+
+    </script>
+</head>
+<body>
+    <p>Введите трёхзначное число</p>
+        <input id="gg" type="text"><button onclick="l()">Ответ</button>
+        <p id="mig"></p>
+</body>
+</html>

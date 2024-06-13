@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Наибольшее наименьшее</title>
+    <script>
+  function l() {
+     
+    let nik = document.getElementById('gg').value;
+    if (nik.length !== 3 || isNaN(nik)) { document.getElementById('mig').innerText = "Введите трёхзначное число";
+      return;
+     }
+      //isNaN определяет является ли литерал или переменная нечисловым значением (NaN) или нет
+      //преобразует первый переданный ей аргумент в строковый тип
+     let a = parseInt(nik[0]);
+     let b = parseInt(nik[1]);
+     let c = parseInt(nik[2]);
+
+     let min = Math.min(a, b, c);
+     let max = Math.max(a, b, c);
+
+     document.getElementById('mig').innerText = `Наибольшее число ${max} , Наименьшее число ${min}.  Ответ: ${max+min}`;
+
+  }
+    </script>
+</head>
+<body>
+    <p>Введите трёхзначное число</p>
+        <input id="gg" type="text"><button onclick="l()">Вывод</button>
+        <p id="mig"></p>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Большая площадь</title>
+    <script>
+
+  function l() {
+    let nik = document.getElementById('gg').value;
+    let nikk = document.getElementById('ggg').value;
+    if (isNaN(nikk) || isNaN(nik)){ document.getElementById('mig').innerText = "Введите в первую колонну r круга а во вторую сторону квадрата";
+      return;
+     }
+     let inz = Math.PI* (nik*nikk);//r^2
+
+     let inn = nikk*nikk;
+     
+     if (inz > inn) {
+        document.getElementById('mig').innerText = `Ответ ${inz.toFixed(2)} >  ${inn.toFixed(2)}`;
+    }
+    else if (inz < inn) {document.getElementById('mig').innerText = `Ответ ${inz.toFixed(2)} < ${inn.toFixed(2)}`;
+}
+}
+    </script>
+</head>
+<body>
+    <p>введите данные</p>
+        <input id="gg" type="text" placeholder="r круга">
+        <input id="ggg" type="text" placeholder="сторона квадрата"><button onclick="l()">Ответ</button>
+        <p id="mig"></p>
+</body>
+</html>

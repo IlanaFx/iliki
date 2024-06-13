@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вес боксера</title>
+    <script>
+  function l() {
+    var ves = document.getElementById('ves').value;
+    
+    if (ves < 60) {
+        moa.textContent ="Лёгкий вес";
+    }
+    else if (ves < 64) {
+        moa.textContent ="Первый полусредний вес";
+    }
+    else if (ves < 69) {
+        moa.textContent ="Полусредний вес";
+    }
+  }
+    </script>
+</head>
+<body>
+    <p>Введите вес боксера состоящий из двухзначного числа</p>
+        <input id="ves" type="text"><button onclick="l()">Какая категория</button>
+        <p id="moa"></p>
+</body>
+</html>

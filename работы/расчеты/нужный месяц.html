@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Месяц</title>
+    <script>
+  function l() {
+    var ves = document.getElementById('ves').value;
+    
+    if (ves == 1) {
+        moa.textContent ="Январь 31 дней (Зима)";
+    }
+    else if (ves == 2) {
+        moa.textContent ="Февраль 29 дней (Зима)";
+    }
+    else if (ves == 3) {
+        moa.textContent ="Март 31 днеь (весна)";
+    }
+    else if (ves == 4) {
+        moa.textContent ="Апрель 30 дней (весна)";
+    }
+    else if (ves == 5) {
+        moa.textContent ="Май 31 дней (весна)";
+    }
+    else if (ves == 6) {
+        moa.textContent ="Июнь 30 дней (лето)";
+    }
+    else if (ves == 7) {
+        moa.textContent ="Июль 31 дней (лето)";
+    }
+    else if (ves == 8) {
+        moa.textContent ="Август 31 дней (лето)";
+    }
+    else if (ves == 9) {
+        moa.textContent ="Сентябрь 30 дней (осень)";
+    }
+    else if (ves == 10) {
+        moa.textContent ="Октябрь 31 дней (осень)";
+    }
+    else if (ves == 11) {
+        moa.textContent ="Ноябрь 30  дней (осень))";
+    }
+    else if (ves == 12) {
+        moa.textContent ="Декабрь 31 дней (Зима)";
+    }
+    else { moa.textContent ="Введите правильное значение месяца"; }
+  }
+    </script>
+</head>
+<body>
+    <p>Введите цифру месяца который вам нужен за 2024 год!</p>
+        <input id="ves" type="text"><button onclick="l()">Какая категория</button>
+        <p id="moa"></p>
+</body>
+</html>

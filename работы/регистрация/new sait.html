@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="fun-border">
+        <div><form action="" autocomplete="off">
+    <h2>Вход</h2>
+   <label for="username">Имя студента</label><br>
+    <input id="username" name="username" pattern="[a-z]{1,15}" title="Таблица должна содержать 1-15 символов" required=""><br>
+ <label for="password">Пароль</label><br>
+    <input id="password" name="password" pattern="[a-z]{1,15}" title="Таблица должна содержать 1-15 символов" required="" type="password"><br>
+ <p><input class="btn" value="Вход" type="submit"></p>
+</form>
+ <h2>Регистрация</h2><br>
+<form action="" autocomplete="off">
+<label for="username2">Имя студента</label><br>
+    <input id="username2" name="username" pattern="[a-z]{1,15}" title="Таблица должна содержать 1-15 символов" required=""><br>
+ <p1><label for="password2">Пароль</label><br>
+    <input id="password2" name="password" pattern="[a-z]{1,8}" title="Таблица должна содержать 1-8 символов" required="" type="password"></p1><br>
+ <label for="url">Ваш сайт</label><br>
+    <input id="url" name="url" type="url"><br>
+</form>
+<form>
+    <label for="phone">Телефон</label><br>
+    <input id="phone" name="phone" required="" pattern="{11-12}" title="Таблица должна содержать 11 символов" type="phone" ><br>
+   
+    <label for="Nik">Ник</label><br>
+    <input id="Nik" name="Nik" required="" pattern="[a-z]{1,8}" title="Таблица должна содержать 1-8 символов" type="Nik" ><br>
+    
+    <label for="email">E-mail</label><br>
+    <input id="email" name="email" required="" type="email"><br>
+    <input id="female" type="radio" name="pol" value="f">
+<label for="female">Женский</label>
+<input id="male" type="radio" name="pol" value="n">
+<label for="male">Мужской</label><br>
+<label>
+    <input type="radio" name="rating" value="yes" />Согласен(а)
+</label>
+<a href="ggg">Политика конфидициальности</a>
+    <p><input class="btn" value="Регистрация" type="submit"></p></div>
+</form>
+</body>
+</html>

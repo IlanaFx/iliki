@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>К/м и м/ч</title>
+    <script>
+  function l() {
+     
+    let nik = document.getElementById('gg').value;
+    let nikk = document.getElementById('ggg').value;
+    if (isNaN(nikk) || isNaN(nik)){ document.getElementById('mig').innerText = "Введите в первую строку к/ч а во вторую м/ч";
+      return;
+     }
+     if ( nik / 3.6 < nikk) {
+        document.getElementById('mig').innerText = `Ответ: ${nikk} м/с`;
+    }
+    else if ( nik / 3.6 > nikk) {
+        document.getElementById('mig').innerText = `Ответ: ${nik} км/ч`;
+    }
+else {document.getElementById('mig').innerText = `Ответ: ${nik} = ${nikk}`;
+}
+  }
+    </script>
+</head>
+<body>
+    <p>введите данные</p>
+        <input id="gg" type="text" placeholder="к/ч">
+        <input id="ggg" type="text" placeholder="м/ч"><button onclick="l()">Ответ</button>
+        <p id="mig"></p>
+</body>
+</html>
