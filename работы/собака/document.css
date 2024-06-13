@@ -1,0 +1,201 @@
+html {
+    font-family: 'Cabin', sans-serif;
+    font-weight: bold;
+    line-height: 48px;
+}
+.img {
+    display: flex;
+    justify-content: center;
+}
+
+#c1 {
+    z-index: 1;
+    display: block;
+    margin: 0 auto;
+    cursor: url("img/Заливка\ цветом\ 1.png"), auto;
+    margin-left: 22%;
+    
+}
+#c2 {
+    z-index: 2;
+    position: absolute;
+    margin-left: 50%;
+    margin-top: 3%;
+}
+#c3 {
+    position: absolute;
+    top: 440px;
+    left: 34%;
+    z-index: 1;
+}
+b {
+    color: #ed9821;
+}
+#m {
+    color: #463017;
+}
+#g {
+    color: #a38265;
+}
+#h1 {
+    color: #d9bc82;
+    font-size: 40px;
+    text-align: center;
+}
+#ull {
+    justify-content: center;
+    margin: 0px;
+    border-top: 10px;
+    border-color: #a38265;
+    border-top: 1px solid  #d9bc82;
+    border-bottom: 1px solid  #d9bc82;
+    
+}
+    .ff {
+        display: flex;
+    justify-content: center;
+    margin: 0px;
+    list-style-type: none;
+    }
+    li {
+    
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-decoration: none;
+        font-size: 28px;
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+a#gg {
+    text-decoration: none;
+    color: black;
+}
+a#gg:hover {
+    background-color: #ed9821;
+    border-radius: 30px;
+    padding: 20px;
+    color: white;
+}
+a#gg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 145px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#ggg {
+    text-decoration: none;
+    color: black;
+}
+a#ggg:hover {
+    background-color: #ed9821;
+    border-radius: 30px;
+    padding: 20px;
+    color: white;
+}
+a#ggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 385px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#gggg {
+    text-decoration: none;
+    color: black;
+}
+a#gggg:hover {
+    background-color: #ed9821;
+    border-radius: 30px;
+    padding: 20px;
+    color: white;
+}
+a#gggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 670px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#ggggg {
+    text-decoration: none;
+    color: black;
+}
+a#ggggg:hover {
+    background-color: #ed9821;
+    border-radius: 30px;
+    padding: 20px;
+    color: white;
+}
+a#ggggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 925px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#gggggg {
+    text-decoration: none;
+    color: black;
+}
+a#gggggg:hover {
+    background-color: #ed9821;
+    border-radius: 30px;
+    padding: 20px;
+    color: white;
+}
+a#gggggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 925px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#gggggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 1160px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#ggggggg {
+    text-decoration: none;
+    color: black;
+}
+a#ggggggg:hover {
+    background-color: #ed9821;
+    border-radius: 30px;
+    padding: 20px;
+    color: white;
+}
+a#ggggggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 1160px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#ggggggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 1420px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
+a#gggggggg {
+    text-decoration: none;
+    color: black;
+}
+a#gggggggg:hover {
+    background-color: #ed9821;
+    border-radius: 30px;
+    padding: 20px;
+    color: white;
+}
+a#gggggggg:hover:after {
+    content: url(img/белы.jpeg);
+    position: absolute;
+    left: 1420px;
+    bottom: 40px;
+    transform: rotate(45deg);
+}
